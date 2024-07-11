@@ -1,0 +1,117 @@
+'use client'
+
+import { Button } from "@/components/button";
+import { useRouter } from "next/navigation";
+import React from "react";
+
+function HomePageModule() {
+    const router = useRouter()
+    return (
+      <div className="bg-white min-h-screen text-black gap-5 flex flex-col items-center w-full py-5 px-7">
+        <div className="p-2 w-full flex justify-between ">
+          <div className="flex flex-col gap-1 text-xs font-semibold">
+            <p className="text-base">Halo!</p>
+            <p>Fathan Naufal Adhitama</p>
+            <p className="text-slate-400">Pelajar</p>
+          </div>
+          <div className="w-16 h-16 rounded-[50%] bg-sunglow">
+          </div>
+        </div>
+        <div className="w-full overflow-hidden relative bg-carmine p-5 flex flex-col items-center justify-center gap-10 rounded-3xl text-white">
+          <h1 className="font-semibold w-full text-left">Mau bantu apa hari ini?</h1>
+          <Button onClick={()=>router.push('/forms')}
+          className="text-sm bg-peach hover:bg-peach z-20 text-carmine hover:-translate-y-0.5 duration-150"
+            >Tawarkan bantuan</Button>
+          <div className="absolute flex justify-center items-center rounded-[50%] border-[3px] border-rose bottom-[-70px] z-10 right-0 w-40 h-40">
+            <div className="w-32 h-32 bg-rose rounded-[50%]"></div>
+          </div>
+        </div>
+        <section className="flex flex-col gap-4 items-center">
+          <h2 className="text-md font-semibold w-full">Artikel untuk kamu</h2>
+          <div className="flex gap-2">
+            <div className="flex w-1/2 flex-col">
+              <div className="bg-carmine mb-3 w-full rounded-xl flex flex-col justify-between p-4 h-48">
+                <p className="text-white text-sm">Kisah Sukses Para Didik</p>
+                <Button onClick={()=>router.push('/forms')}
+                className="text-[8px] font-semibold w-4/5 bg-peach  hover:bg-peach z-20 text-carmine hover:-translate-y-0.5 duration-150"
+                  >Lihat lebih lanjut</Button>
+              </div>
+              <div className="bg-gray mb-3 w-full rounded-xl flex flex-col justify-between p-4 h-32">
+                <p className="text-black text-sm">Tentang Kami</p>
+                <Button onClick={()=>router.push('/forms')}
+                className="text-[8px] font-semibold w-4/5 z-20 hover:-translate-y-0.5 duration-150"
+                  >Lihat lebih lanjut</Button>
+              </div>
+            </div>
+            <div className="flex w-1/2 flex-col">
+              <div className="bg-peach mb-3 w-full rounded-xl flex flex-col justify-between p-4 h-36">
+                <p className="text-black text-sm">Bagaimana Cara Kontribusi?</p>
+                <Button onClick={()=>router.push('/forms')}
+                className="text-[8px] font-semibold w-4/5 bg-amber-300  hover:bg-amber-300 z-20 text-white hover:-translate-y-0.5 duration-150"
+                  >Lihat lebih lanjut</Button>
+              </div>
+              <div className="bg-valencia mb-3 w-full rounded-xl flex flex-col justify-between p-4 h-40">
+                <p className="text-white text-sm">Tantangan pendidikan di Indonesia</p>
+                <Button onClick={()=>router.push('/forms')}
+                className="text-[8px] font-semibold w-4/5 bg-peach  hover:bg-peach z-20 text-carmine hover:-translate-y-0.5 duration-150"
+                  >Lihat lebih lanjut</Button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="flex flex-col gap-4 items-center w-full text-xs">
+          <h2 className="text-md font-semibold w-full text-left">Bantuan yang cocok buat kamu</h2>
+          <div className="flex flex-col gap-2 w-full">
+            <div className="w-full rounded-xl bg-gray text-rose p-3 font-semibold">
+              <div className="flex justify-between">
+                <div className="flex flex-col">
+                  <p>Biaya Pendaftaran PPKB</p>
+                  <p className="font-medium text-gray">Dibuka oleh: <span className="text-rose/[0.7]">Xaviera</span></p>
+                </div>
+                <p 
+                className="rounded-xl border-green-500 border text-green-500
+                text-black px-2 h-max text-[8px]">
+                  Masih dibuka
+                </p>
+              </div>
+              <div className="flex font-semibold my-3 text-[10px] gap-3 flex-wrap">
+                <p className="rounded-xl bg-sunglow text-black px-4 py-1">SMA</p>
+                <p className="rounded-xl bg-sunglow text-black px-4 py-1">Penunjang Pendidikan</p>
+                <p className="rounded-xl bg-sunglow text-black px-4 py-1">Jalur Mandiri</p>
+              </div>
+              <p className="font-medium text-secondary text-[10px] border-b pb-2 border-carmine">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae sunt illo officiis fugit nostrum iusto debitis fuga distinctio, maiores officia?
+              </p>
+              <p className="font-medium text-carmine text-[10px] p-1"> 10 orang telah mendaftar</p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 w-full">
+            <div className="w-full rounded-xl bg-gray text-rose p-3 font-semibold">
+              <div className="flex justify-between">
+                <div className="flex flex-col">
+                  <p>Biaya Pendaftaran PPKB</p>
+                  <p className="font-medium text-secondary">Dibuka oleh: <span className="text-rose/[0.7]">Xaviera</span></p>
+                </div>
+                <p 
+                className="rounded-xl border-green-500 border text-green-500
+                text-black px-2 h-max text-[8px]">
+                  Masih dibuka
+                </p>
+              </div>
+              <div className="flex font-semibold my-3 text-[10px] gap-3 flex-wrap">
+                <p className="rounded-xl bg-sunglow text-black px-4 py-1">SMA</p>
+                <p className="rounded-xl bg-sunglow text-black px-4 py-1">Penunjang Pendidikan</p>
+                <p className="rounded-xl bg-sunglow text-black px-4 py-1">Jalur Mandiri</p>
+              </div>
+              <p className="font-medium text-secondary text-[10px] border-b pb-2 border-carmine">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae sunt illo officiis fugit nostrum iusto debitis fuga distinctio, maiores officia?
+              </p>
+              <p className="font-medium text-carmine text-[10px] p-1"> 10 orang telah mendaftar</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    )
+}
+
+export default HomePageModule;

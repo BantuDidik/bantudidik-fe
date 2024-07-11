@@ -19,7 +19,7 @@ export default function Home() {
       </div>
       <div className="py-10 px-5 flex flex-col gap-5 text-center justify-center items-center">
         <h1 className="text-black font-semibold text-xl">Buka Peluang Pendidikan dengan Bantuan Anda</h1>
-        <p className="text-gray-400 text-sm">Saatnya berkontribusi untuk mendukung para didik meraih potensi terbaik mereka</p>
+        <p className="text-secondary text-sm">Saatnya berkontribusi untuk mendukung para didik meraih potensi terbaik mereka</p>
       </div>
       <Button className="w-4/5 mt-20" onClick={() => router.push('/login')}>Mulai</Button>
     </main>

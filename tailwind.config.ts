@@ -20,6 +20,8 @@ const config: Config = {
         valencia: '#FF5E5E',
         sunglow: '#FFD464',
         peach: '#FCEDD8',
+        gray: '#F5F6FB',
+        secondary: '#8B8B8B'
       },
 
     },
