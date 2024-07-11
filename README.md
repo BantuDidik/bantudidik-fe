@@ -1,1 +1,1 @@
-BantuDidik first commit
+# Bantudidik Frontend Repository
