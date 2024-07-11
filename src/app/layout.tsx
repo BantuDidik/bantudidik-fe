@@ -3,6 +3,11 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], // Specify the weights you need
+});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <div className="bg-slate-300 flex justify-center">
-          <div className="bg-white w-full md:w-[360px] min-h-screen">
+          <div className="bg-white w-full md:w-[420px] min-h-screen">
             {children}
           </div>
         </div>

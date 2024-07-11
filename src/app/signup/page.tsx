@@ -1,8 +1,8 @@
 import React from "react";
-import LoginPageModule from '@/modules/LoginPageModule'
+import SignupPageModule from '@/modules/SignupPageModule'
 
-function LoginPage() {
-  return <LoginPageModule />
+function SignupPage() {
+  return <SignupPageModule />
 }
 
-export default LoginPage;
+export default SignupPage;
