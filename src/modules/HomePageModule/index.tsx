@@ -3,12 +3,20 @@
 import { Button } from "@/components/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
+import Cookies from "js-cookie";
+import Navbar from "@/components/navbar";
 
 function HomePageModule() {
     const router = useRouter()
+
+    useEffect(() => {
+        const token = Cookies.get('access_token')
+        if (token == undefined) router.push('/')
+    }, [])
     return (
       <div className="bg-white min-h-screen text-black gap-5 flex flex-col items-center w-full py-5 px-7">
+        <Navbar />
         <div className="p-2 w-full flex justify-between ">
           <div className="flex flex-col gap-1 text-xs font-semibold">
             <p className="text-base">Halo!</p>
@@ -23,9 +31,6 @@ function HomePageModule() {
           <Button onClick={()=>router.push('/forms')}
           className="text-[12px] bg-peach w-3/5 hover:bg-peach z-20 text-carmine hover:-translate-y-0.5 duration-150"
             >Tawarkan bantuan</Button>
-          {/* <div className="absolute flex justify-center items-center rounded-[50%] border-[3px] border-rose bottom-[-70px] z-10 right-0 w-40 h-40">
-            <div className="w-32 h-32 bg-rose rounded-[50%]"></div>
-          </div> */}
           <Image src={'/tawarkanBantuan.svg'} alt="illustration" width={200} height={120} className="absolute right-0"/>
         </div>
         <section className="flex flex-col gap-4 items-center">

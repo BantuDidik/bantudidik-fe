@@ -5,34 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { doc, setDoc } from "firebase/firestore";
-import { db, GoogleAuthProvider, getAuth, signInWithPopup } from "@/config/db";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 
-function LoginPageModule() {
+function OnboardingPageModule() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const router = useRouter()
-
-    const handleGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        provider.setCustomParameters({
-          prompt: 'select_account',
-        });
-        const auth = getAuth();
-        const userCred = await signInWithPopup(auth, provider);
-        console.log(userCred)
-        // set cookie
-        Cookies.set('access_token', (userCred as any)._tokenResponse.idToken)
-        Cookies.set('user', userCred.user.uid)
-            
-        // await setDoc(doc(db, "users", userCred.user.uid), {
-        //     email: userCred.user.email,
-        //     password: ""
-        //   });
-        router.push('/home')
-      };
+    const [confirmPassword, setConfirmPassword] = useState('')
   return (
   <div className="flex flex-col p-5 gap-10">
     <div className="w-full">
@@ -42,8 +19,8 @@ function LoginPageModule() {
     </div>
     <div className="flex flex-col gap-5 text-black">
         <div className="flex flex-col gap-2 text-center mb-10">
-            <h1 className="font-semibold text-xl">Selamat datang!</h1>
-            <p className="text-slate-400 text-xs">Sign in  untuk lanjut</p>
+            <h1 className="font-semibold text-xl">Isi Informasi Tentang </h1>
+            <p className="text-slate-400 text-xs">Buat akun baru</p>
         </div>
         <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2">
@@ -58,23 +35,29 @@ function LoginPageModule() {
                 value={password} onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"/>
             </div>
+            <div className="flex flex-col gap-2">
+                <label htmlFor="password" className="text-xs font-medium">Confirm Password</label>
+                <Input type="password" id="password"
+                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Password"/>
+            </div>
         </div>
-        <Button>Login</Button>
+        <Button>Sign Up</Button>
         <div className="flex items-center text-xs font-semibold justify-between">
             <div className="bg-rose h-[1px] w-2/5"></div>
             <p>or</p>
             <div className="bg-rose h-[1px] w-2/5"></div>
         </div>
-        <Button onClick={handleGoogle} className="bg-transparent border border-rose font-medium text-black hover:bg-slate-200 duration-300">
+        <Button className="bg-transparent border border-rose font-medium text-black hover:bg-slate-200 duration-300">
             <div className="flex justify-center gap-2">
                 <Image src={'/google.svg'} alt="google" width={15} height={15} />
-                <p>Continue  with Google</p>
+                <p>Sign up with Google</p>
             </div>
         </Button>
-        <p className="text-xs text-center">Belum punya akun? <Link href={'/signup'} className="text-rose font-semibold">Sign up</Link></p>
+        <p className="text-xs text-center">Sudah punya akun? <Link href={'/login'} className="text-rose font-semibold">Sign in</Link></p>
     </div>
   </div>
     )
 }
 
-export default LoginPageModule;
+export default OnboardingPageModule;
