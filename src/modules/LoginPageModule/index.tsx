@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, query, where, getDocs } from "firebase/firestore";
 import { db, GoogleAuthProvider, getAuth, signInWithPopup } from "@/config/db";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -26,11 +26,20 @@ function LoginPageModule() {
         // set cookie
         Cookies.set('access_token', (userCred as any)._tokenResponse.idToken)
         Cookies.set('user', userCred.user.uid)
-            
-        // await setDoc(doc(db, "users", userCred.user.uid), {
-        //     email: userCred.user.email,
-        //     password: ""
-        //   });
+
+        const email = userCred.user.email
+
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            await setDoc(doc(db, "users", userCred.user.uid), {
+                email: email,
+                password: password,
+                createdAt: new Date(),
+            });
+        }
         router.push('/home')
       };
   return (
