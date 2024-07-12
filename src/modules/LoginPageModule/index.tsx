@@ -25,7 +25,8 @@ function LoginPageModule() {
         console.log(userCred)
         // set cookie
         Cookies.set('access_token', (userCred as any)._tokenResponse.idToken)
-        Cookies.set('user', userCred.user.uid)
+        Cookies.set('userId', userCred.user.uid)
+        Cookies.set('userName', userCred.user.displayName!.split(' ')[0])
 
         const email = userCred.user.email
 

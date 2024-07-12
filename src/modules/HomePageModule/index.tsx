@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import Navbar from "@/components/navbar";
 import OfferCard from "@/components/OfferCard";
+import { MessageSquareHeart, MessageSquareMore } from "lucide-react";
 
 function HomePageModule() {
     const router = useRouter()
@@ -17,7 +18,7 @@ function HomePageModule() {
     }, [])
 
     return (
-      <div className="bg-white min-h-screen text-black gap-5 flex flex-col items-center w-full py-5 px-7">
+      <div className="bg-white relative min-h-screen text-black gap-5 flex flex-col items-center w-full py-5 px-7">
         <Navbar />
         <div className="p-2 w-full flex justify-between ">
           <div className="flex flex-col gap-1 text-xs font-semibold">
@@ -25,8 +26,6 @@ function HomePageModule() {
             <p>Fathan Naufal Adhitama</p>
             <p className="text-slate-400">Pelajar</p>
           </div>
-          {/* <div className="w-16 h-16 rounded-[50%] bg-sunglow">
-          </div> */}
           <Image src={'/profile.svg'} alt="" width={0}  height={0} className="w-16 h-16" />
         </div>
         <div className="w-full overflow-hidden relative bg-rose p-5 flex flex-col items-start justify-center gap-3 rounded-3xl text-white">
@@ -59,6 +58,10 @@ function HomePageModule() {
             <OfferCard />
           </div>
         </section>
+        <div onClick={() => router.push('/forum')}
+        className="bg-rose hover:cursor-pointer text-white flex text-xs gap-2 items-center rounded-xl p-2 fixed bottom-24 right-10 md:right-[38%]">
+          <MessageSquareMore size={24}/> Forum
+        </div>
       </div>
     )
 }
