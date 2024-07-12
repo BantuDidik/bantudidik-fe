@@ -33,7 +33,8 @@ function OnboardingPageModule() {
             "name": nama,
             "phoneNumber": number,
             "birthDate": date,
-            "occupation": job
+            "occupation": job,
+            "location": location
         }
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/personal/create`, 

@@ -132,8 +132,8 @@ function FundingPageModule() {
             </div>
         </div>
         <div className="flex gap-3">
-            <Chip onClick={() => setUserStatus('semua')} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'semua'? '':'bg-white border border-rose text-rose'}`}>Semua</Chip>
-            <Chip onClick={() => setUserStatus('mendaftar')} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'mendaftar'? '':'bg-white border border-rose text-rose'}`}>Mendaftar</Chip>
+            <Chip onClick={() => { setUserStatus('semua') ; fetchFundings()}} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'semua'? '':'bg-white border border-rose text-rose'}`}>Semua</Chip>
+            <Chip onClick={() => { setUserStatus('mendaftar') ; fetchFundingsRegistered()} } className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'mendaftar'? '':'bg-white border border-rose text-rose'}`}>Mendaftar</Chip>
             <Chip onClick={() => setUserStatus('diterima')} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'diterima'? '':'bg-white border border-rose text-rose'}`}>Diterima</Chip>
         </div>
         <section className="flex flex-col gap-3">
