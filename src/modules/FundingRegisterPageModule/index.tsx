@@ -199,28 +199,22 @@ function FundingRegisterPageModule({id} : {id:string}) {
                 placeholder="Isi alasan Anda di sini"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="alamat" className="text-xs font-medium">Alamat domisili</label>
+                <label htmlFor="alamat" className="text-xs font-medium">Bank/E-Wallet</label>
                 <Input type="text" id="alamat"
                 value={alamat} onChange={(e) => setAlamat(e.target.value)}
-                placeholder="Jl. Mawar No 10"/>
+                placeholder="BRI, Gopay, dll."/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="kote" className="text-xs font-medium">Kota</label>
+                <label htmlFor="kote" className="text-xs font-medium">No Rekening</label>
                 <Input type="text" id="kote"
                 value={kota} onChange={(e) => setKota(e.target.value)}
-                placeholder="Malang"/>
+                placeholder="192123123"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="provinsi" className="text-xs font-medium">Provinsi</label>
+                <label htmlFor="provinsi" className="text-xs font-medium">Nominal yang dibutuhkan</label>
                 <Input type="text" id="provinsi"
                 value={provinsi} onChange={(e) => setProvinsi(e.target.value)}
                 placeholder="Jawa Timur"/>
-            </div>
-            <div className="flex flex-col gap-2">
-                <label htmlFor="kode" className="text-xs font-medium">Kode Pos</label>
-                <Input type="text" id="kode"
-                value={kode} onChange={(e) => setKode(e.target.value)}
-                placeholder="16990"/>
             </div>
             {funding?.requirements.identity && <div className="flex flex-col gap-2">
                 <label htmlFor="identitas" className="text-xs font-medium">Kartu Identitas</label>

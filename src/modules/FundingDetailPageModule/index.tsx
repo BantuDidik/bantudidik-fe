@@ -97,7 +97,7 @@ function FundingDetailPageModule({id} : {id : string}) {
             <div className="flex flex-col">
                 <p className="flex items-center gap-1"><Calendar size={14}/> Tenggat Waktu</p>
                 <p className="flex gap-1 text-sunglow">
-                    tanggal
+                    17 Juli 2024
                 </p>
             </div>
          </div>
