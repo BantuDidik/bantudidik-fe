@@ -65,7 +65,7 @@ function HomePageModule() {
           <div className="flex gap-8">
               <div className="bg-carmine mb-3 w-full rounded-xl flex flex-col justify-between p-4 h-48">
                 <p className="text-white text-sm">Kisah Sukses Para Didik</p>
-                <Button onClick={()=>router.push('/forms')}
+                <Button onClick={()=>router.push('/article')}
                 className="text-[8px] font-semibold w-4/5 bg-peach  hover:bg-peach z-20 text-carmine hover:-translate-y-0.5 duration-150"
                   >Lihat lebih lanjut</Button>
               </div>
