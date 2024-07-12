@@ -15,7 +15,7 @@ function HomePageModule() {
     useEffect(() => {
         const token = Cookies.get('access_token')
         console.log(token)
-        // if (token == undefined) router.push('/')
+        if (token == undefined) router.push('/login')
     }, [])
 
     return (
@@ -57,7 +57,7 @@ function HomePageModule() {
         <section className="flex flex-col gap-4 items-center w-full text-xs">
           <h2 className="text-md font-semibold w-full text-left">Bantuan yang cocok buat kamu</h2>
           <div className="flex flex-col gap-2 w-full">
-            <OfferCard />
+            {/* <OfferCard data={null}/> */}
           </div>
         </section>
         <div onClick={() => router.push('/forum')}

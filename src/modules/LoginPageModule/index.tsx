@@ -58,12 +58,15 @@ function LoginPageModule() {
             if (response.status == 200) {
                 const token = response.data.userCredential._tokenResponse.idToken
                 const uid = response.data.userCredential.user.uid
-                // Cookies.set('access_token', token)
+                Cookies.set('access_token', token)
                 Cookies.set('userId', uid)
                 toast.success('Login berhasil!')
                 try {
                     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${uid}`,
                     { withCredentials: true });
+                    if (res.status == 200) {
+                        router.push('/home')
+                    }
                 } catch (error: any) {
                     if (error.response.status == 200) {
                         router.push('/home')

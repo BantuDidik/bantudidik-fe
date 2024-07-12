@@ -1,33 +1,53 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Chip } from "./chip";
 import { useRouter } from "next/navigation";
+import { FundingInterface } from "@/modules/FundingPageModule/interface";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-function OfferCard() {
+
+function OfferCard({data} : {data: FundingInterface}) {
     const router = useRouter()
-    const dummyId = '3'
+    const [giver, setGiver] = useState('')
+
+    const fetchGiver = async () => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${data.idUser}`,
+            { withCredentials: true })
+            console.log(response.data.name)
+            setGiver(response.data.name)
+        } catch (error) {
+            toast.error('Gagal mengambil data user')
+        }
+    }
+    useEffect(() => {
+        fetchGiver()
+    }, [])
   return (
-    <div className="w-full rounded-xl hover:cursor-pointer bg-gray text-rose p-3 font-semibold" onClick={() => router.push(`/funding/${dummyId}`)}>
+    <div className="w-full rounded-xl hover:cursor-pointer bg-gray text-rose p-3 font-semibold" onClick={() => router.push(`/funding/${data.id}`)}>
         <div className="flex justify-between">
             <div className="flex flex-col text-xs">
-                <p>Biaya Pendaftaran PPKB</p>
-                <p className="font-medium text-secondary">Dibuka oleh: <span className="text-rose/[0.7]">Xaviera</span></p>
+                <p>{data.title}</p>
+                <p className="font-medium text-secondary">Dibuka oleh: <span className="text-rose/[0.7]">{giver}</span></p>
             </div>
-            <p 
-            className="rounded-xl border-green-500 border text-green-500
-            text-black px-2 h-max text-[8px]">
-                Masih dibuka
-            </p>
+            {data.status == 'buka' ? (
+                <Chip className="rounded-xl border-green-500 border text-green-500
+                px-2 h-max text-[8px] bg-transparent">Masih dibuka</Chip>
+            ) : (
+                <Chip className="rounded-xl border-red-500 border text-red-500
+                px-2 h-max text-[8px] bg-transparent">Ditutup</Chip>
+            )}
         </div>
         <div className="flex font-semibold my-3 text-[10px] gap-3 flex-wrap">
-            <Chip>SMA</Chip>
-            <Chip>Alat Penunjang</Chip>
-            <Chip>Jalur Mandiri</Chip>
+            {data.jenjang.map(jenjang => (
+                <Chip>{jenjang}</Chip>
+            ))}
         </div>
         <p className="font-medium text-secondary text-[10px] border-b pb-2 border-carmine">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae sunt illo officiis fugit nostrum iusto debitis fuga distinctio, maiores officia?
+            {data.description}
         </p>
-        <p className="font-medium text-carmine text-[10px] p-1"> 10 orang telah mendaftar</p>
+        <p className="font-medium text-carmine text-[10px] p-1"> {data.applicants} orang telah mendaftar</p>
     </div>
   )
 }
