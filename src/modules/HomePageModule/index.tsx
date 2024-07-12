@@ -3,19 +3,39 @@
 import { Button } from "@/components/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Navbar from "@/components/navbar";
 import OfferCard from "@/components/OfferCard";
 import { MessageSquareHeart, MessageSquareMore } from "lucide-react";
+import axios from "axios";
+import { FundingInterface } from "../FundingPageModule/interface";
 
 function HomePageModule() {
     const router = useRouter()
+    const [fundings, setFundings] = useState<FundingInterface[]>([])
+    const [user, setUser] = useState<any>()
 
     useEffect(() => {
         const token = Cookies.get('access_token')
+        const idUser = Cookies.get('userId')
+
         console.log(token)
         // if (token === undefined) router.push('/login')
+
+        const fetchFundings = async() => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/funding/list`, { withCredentials: true });
+            setFundings(response.data)
+        }
+
+        const fetchUser = async() => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${idUser}`, { withCredentials: true });
+            setUser(response.data)
+        }
+
+        fetchFundings()
+        fetchUser()
+
     }, [])
 
     return (
@@ -24,8 +44,12 @@ function HomePageModule() {
         <div className="p-2 w-full flex justify-between ">
           <div className="flex flex-col gap-1 text-xs font-semibold">
             <p className="text-base">Halo!</p>
-            <p>Fathan Naufal Adhitama</p>
-            <p className="text-slate-400">Pelajar</p>
+            { user === undefined ? '' :
+                <>
+                    <p>{user.name}</p>
+                    <p className="text-slate-400">{user.occupation}</p>
+                </>
+            }
           </div>
           <Image onClick={() => router.push('/profile')} src={'/profile.svg'} 
           alt="" width={0}  height={0} className="w-16 h-16 hover:cursor-pointer" />
@@ -54,10 +78,13 @@ function HomePageModule() {
               </div>
           </div>
         </section>
-        <section className="flex flex-col gap-4 items-center w-full text-xs">
+        <section className="flex flex-col gap-4 items-center w-full text-xs mb-16">
           <h2 className="text-md font-semibold w-full text-left">Bantuan yang cocok buat kamu</h2>
           <div className="flex flex-col gap-2 w-full">
-            {/* <OfferCard data={null}/> */}
+            {fundings.slice(0, 3).map(funding => 
+                <OfferCard data={funding}/>
+            )}
+            
           </div>
         </section>
         <div onClick={() => router.push('/forum')}
