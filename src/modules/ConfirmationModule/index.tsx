@@ -19,7 +19,8 @@ function ConfirmationModule({id, userId} : {id : string, userId: string}) {
     const [user, setUser] = useState<PersonalInterface>()
 
     const handleAccept = () => {
-        router.push(`/funding/${id}`)
+        router.push(`/home`)
+        toast.success('Bantuan telah sukses diterima. Terima kasih!')
     }
 
     const fetchApplication = async () => {
