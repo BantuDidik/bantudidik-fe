@@ -18,7 +18,6 @@ function ApplicantsDetailModule({id, userId} : {id : string, userId: string}) {
     const [application, setApplication] = useState<ApplicationInterface>()
     const [user, setUser] = useState<PersonalInterface>()
 
-
     const fetchApplication = async () => {
         try {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/application/${userId}`,
@@ -52,7 +51,19 @@ function ApplicantsDetailModule({id, userId} : {id : string, userId: string}) {
         fetchUser()
     }, [application])
 
-    const handleAccept = () => {
+    const handleAccept = async () => {
+
+        const body = {
+            idApplication : userId,
+            idFunding : id
+        }
+        
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/application/accept`,
+            body, { withCredentials: true })
+
+            console.log(response)
+
+
         router.push(`/funding/${id}/applicants/${userId}/confirmation`)
     }
 

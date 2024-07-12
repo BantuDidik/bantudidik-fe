@@ -49,6 +49,19 @@ function FundingPageModule() {
         }
     }
 
+    const fetchFundingsCompleted = async () => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/funding/list?user=${getUserId()}&status=Completed`,
+            { withCredentials: true });
+            if(response.status == 200) {
+                setFundings(response.data)
+            }
+        } catch (error) {
+            toast.error('Gagal mengambil data')
+            console.error(error)
+        }
+    }
+
     useEffect(() => {
         fetchFundings()
     }, [])
@@ -133,8 +146,8 @@ function FundingPageModule() {
         </div>
         <div className="flex gap-3">
             <Chip onClick={() => { setUserStatus('semua') ; fetchFundings()}} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'semua'? '':'bg-white border border-rose text-rose'}`}>Semua</Chip>
-            <Chip onClick={() => { setUserStatus('mendaftar') ; fetchFundingsRegistered()} } className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'mendaftar'? '':'bg-white border border-rose text-rose'}`}>Mendaftar</Chip>
-            <Chip onClick={() => setUserStatus('diterima')} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'diterima'? '':'bg-white border border-rose text-rose'}`}>Diterima</Chip>
+            <Chip onClick={() => { setUserStatus('diterima') ; fetchFundingsRegistered()} } className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'diterima'? '':'bg-white border border-rose text-rose'}`}>Mendaftar</Chip>
+            <Chip onClick={() => { setUserStatus('selesai') ; fetchFundingsCompleted()}} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'selesai'? '':'bg-white border border-rose text-rose'}`}>Diterima</Chip>
         </div>
         <section className="flex flex-col gap-3">
             {fundings?.map((funding, index) => (

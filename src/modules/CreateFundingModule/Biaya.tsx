@@ -107,19 +107,19 @@ function Biaya() {
                 <label htmlFor="nominal" className="text-xs font-medium">Jumlah Nominal</label>
                 <Input type="number" min={10000} id="nominal"
                 value={nominal} onChange={(e) => setNominal(e.target.value)}
-                placeholder="Malang"/>
+                placeholder="190000"/>
             </div>
             <div className="flex flex-col gap-2">
                 <label htmlFor="metode" className="text-xs font-medium">Metode Transfer</label>
                 <Input type="text" id="metode"
                 value={metode} onChange={(e) => setMetode(e.target.value)}
-                placeholder="Jawa Timur"/>
+                placeholder="BRI, Gopay, dll"/>
             </div>
             <div className="flex flex-col gap-2">
                 <label htmlFor="date" className="text-xs font-medium">Tanggal Tutup</label>
                 <Input type="date" id="date"
                 value={date} onChange={(e) => setDate(e.target.value)}
-                placeholder="16990"/>
+                placeholder="Tanggal"/>
             </div>
             <div className="flex flex-col gap-2">
                 <label htmlFor="bantuan" className="text-xs font-medium">Jenjang</label>

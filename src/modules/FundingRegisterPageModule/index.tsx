@@ -214,7 +214,7 @@ function FundingRegisterPageModule({id} : {id:string}) {
                 <label htmlFor="provinsi" className="text-xs font-medium">Nominal yang dibutuhkan</label>
                 <Input type="text" id="provinsi"
                 value={provinsi} onChange={(e) => setProvinsi(e.target.value)}
-                placeholder="Jawa Timur"/>
+                placeholder="125000"/>
             </div>
             {funding?.requirements.identity && <div className="flex flex-col gap-2">
                 <label htmlFor="identitas" className="text-xs font-medium">Kartu Identitas</label>
