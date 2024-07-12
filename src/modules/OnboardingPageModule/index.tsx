@@ -5,11 +5,47 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 function OnboardingPageModule() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [nama, setNama] = useState('')
+    const [job, setJob] = useState('')
+    const [location, setLocation] = useState('')
+    const [number, setNumber] = useState('')
+    const [date, setDate] = useState('')
+    const router = useRouter()
+
+    const isNumberValid = () => {
+        const indonesianPhoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
+        return indonesianPhoneRegex.test(number)
+    }
+
+    const handleConfirm = async () => {
+        if (!isNumberValid()) {
+            toast.error('Nomor telepon tidak valid')
+            return;
+        }
+        const body = {
+            "idUser": Cookies.get('userId'),
+            "name": nama,
+            "phoneNumber": number,
+            "birthDate": date,
+            "occupation": job
+        }
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/personal/create`, 
+                body, { withCredentials: true });
+            if (response.status == 200) {
+                router.push('/home')
+            }
+        } catch (error) {
+            toast.error('Terdapat kesalahan')
+        }
+        
+    }
   return (
   <div className="flex flex-col p-5 gap-10">
     <div className="w-full">
@@ -24,37 +60,37 @@ function OnboardingPageModule() {
         </div>
         <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-xs font-medium">Nama Lengkap</label>
-                <Input type="text" id="email"
-                value={email} onChange={(e) => setEmail(e.target.value)}
+                <label htmlFor="nama" className="text-xs font-medium">Nama Lengkap</label>
+                <Input type="text" id="nama"
+                value={nama} onChange={(e) => setNama(e.target.value)}
                 placeholder="Nama Lengkap"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-xs font-medium">Nomor Telepon</label>
-                <Input type="text" id="email"
-                value={email} onChange={(e) => setEmail(e.target.value)}
+                <label htmlFor="telepon" className="text-xs font-medium">Nomor Telepon</label>
+                <Input type="text" id="telepon"
+                value={number} onChange={(e) => setNumber(e.target.value)}
                 placeholder="+62"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-xs font-medium">Tanggal Lahir</label>
-                <Input type="date" id="email"
-                value={email} onChange={(e) => setEmail(e.target.value)}
+                <label htmlFor="date" className="text-xs font-medium">Tanggal Lahir</label>
+                <Input type="date" id="date"
+                value={date} onChange={(e) => setDate(e.target.value)}
                 placeholder="mm/dd/yy"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-xs font-medium">Pekerjaan</label>
-                <Input type="text" id="email"
-                value={email} onChange={(e) => setEmail(e.target.value)}
+                <label htmlFor="job" className="text-xs font-medium">Pekerjaan</label>
+                <Input type="text" id="job"
+                value={job} onChange={(e) => setJob(e.target.value)}
                 placeholder="Pelajar"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-xs font-medium">Lokasi</label>
-                <Input type="text" id="email"
-                value={email} onChange={(e) => setEmail(e.target.value)}
+                <label htmlFor="lokasi" className="text-xs font-medium">Lokasi</label>
+                <Input type="text" id="lokasi"
+                value={location} onChange={(e) => setLocation(e.target.value)}
                 placeholder="Kota Depok"/>
             </div>
         </div>
-        <Button>Konfirmasi</Button>
+        <Button onClick={handleConfirm}>Konfirmasi</Button>
     </div>
   </div>
     )
