@@ -14,7 +14,7 @@ import { FundingInterface } from "../FundingPageModule/interface";
 function HomePageModule() {
     const router = useRouter()
     const [fundings, setFundings] = useState<FundingInterface[]>([])
-    const [user, setUser] = useState<any>()
+    const [user, setUser] = useState<any>(null)
 
     useEffect(() => {
         const token = Cookies.get('access_token')
@@ -44,7 +44,7 @@ function HomePageModule() {
         <div className="p-2 w-full flex justify-between ">
           <div className="flex flex-col gap-1 text-xs font-semibold">
             <p className="text-base">Halo!</p>
-            { user === undefined ? '' :
+            { user === null ? '' :
                 <>
                     <p>{user.name}</p>
                     <p className="text-slate-400">{user.occupation}</p>

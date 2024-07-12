@@ -6,13 +6,15 @@ import { ArrowLeft, Calendar, CircleDollarSign, Clock10, Eye, LogOut, MapPinIcon
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Navbar from "@/components/navbar";
+import axios from "axios";
 
 function Profile() {
     const router = useRouter()
     const [isInputOpen, setIsInputOpen] = useState(false)
+    const [user, setUser] = useState<any>(null)
 
     const handleAccept = () => {
         router.push(`/funding/3/applicants/4/confirmation`)
@@ -24,6 +26,20 @@ function Profile() {
         Cookies.remove('userName')
         router.push('/login')
     }
+
+    useEffect(() => {
+        const token = Cookies.get('access_token')
+        const idUser = Cookies.get('userId')
+
+        const fetchUser = async() => {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${idUser}`, { withCredentials: true });
+            console.log(response.data)
+            setUser(response.data)
+        }
+
+        fetchUser()
+
+    }, [])
 
   return (
     <main className="relative flex flex-col items-center overflow-hidden h-full">
@@ -40,9 +56,14 @@ function Profile() {
         className="w-1/4"
          />
          <div className="flex flex-col items-center text-center gap-2">
-            <h1 className="text-lg text-white font-semibold">Fathan</h1>
-            <p className="flex gap-1 w-full text-xs"><MapPinIcon size={16}/> Depok</p>
-            <Chip className="bg-sunglow text-black">Pelajar</Chip>
+
+            { user === null ? '' :
+                <>    
+                    <h1 className="text-lg text-white font-semibold">{user.name}</h1>
+                    <p className="flex gap-1 w-full text-xs"><MapPinIcon size={16}/>{user.location}</p>
+                    <Chip className="bg-sunglow text-black">{user.occupation}</Chip>
+                </>
+            }
          </div>
       </div>
       <div className="p-5 flex w-full flex-col gap-5 justify-center items-center text-xs">
