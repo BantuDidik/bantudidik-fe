@@ -149,7 +149,7 @@ function FundingPageModule() {
             <Chip onClick={() => { setUserStatus('diterima') ; fetchFundingsRegistered()} } className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'diterima'? '':'bg-white border border-rose text-rose'}`}>Mendaftar</Chip>
             <Chip onClick={() => { setUserStatus('selesai') ; fetchFundingsCompleted()}} className={`text-white bg-rose hover:cursor-pointer ${userStatus == 'selesai'? '':'bg-white border border-rose text-rose'}`}>Diterima</Chip>
         </div>
-        <section className="flex flex-col gap-3">
+        <section className="flex flex-col gap-3 pb-20">
             {fundings?.map((funding, index) => (
                 <OfferCard key={index} data={funding}/>
             ))}
