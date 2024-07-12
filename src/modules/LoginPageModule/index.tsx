@@ -29,6 +29,7 @@ function LoginPageModule() {
 
         if (userCred) {
             const uid = userCred.user.uid
+            Cookies.set('access_token', (userCred as any)._tokenResponse.idToken)
             Cookies.set('userId', uid)
             try {
                 const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${uid}`,
@@ -38,11 +39,6 @@ function LoginPageModule() {
                 }
             } catch (error: any) {
                 if (error.response.status == 200) {
-                     // set cookie
-                    Cookies.set('access_token', (userCred as any)._tokenResponse.idToken)
-                    Cookies.set('userId', userCred.user.uid)
-                    Cookies.set('userName', userCred.user.displayName!.split(' ')[0])
-
                     const email = userCred.user.email
 
                     const usersRef = collection(db, "users");
