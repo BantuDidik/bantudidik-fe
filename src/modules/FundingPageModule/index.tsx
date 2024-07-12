@@ -35,23 +35,23 @@ function FundingPageModule() {
             height: isFilterOpen ? '200px' : '0px'
         }}>
             <h1 className="text-carmine font-medium">Filter</h1>
-            <div className="flex gap-2 text-xs">
+            <div className="flex justify-between gap-2 text-xs w-full">
                 <div className="flex flex-col gap-1">
                     <h2 className="text-rose">Jenis Bantuan</h2>
                     <div className="flex flex-col gap-1 text-secondary text-[11px]">
                         <div className="flex items-center">
                             <input id="biaya" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-rose" />
-                            <label htmlFor="biaya" className="ms-2">Biaya pendidikan</label>
+                            <label htmlFor="biaya" className="ms-2">Biaya</label>
                         </div>
                         <div className="flex items-center">
                             <input id="penunjang" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-rose" />
-                            <label htmlFor="penunjang" className="ms-2">Peralatan penunjang pendidikan</label>
+                            <label htmlFor="penunjang" className="ms-2">Alat</label>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-col gap-1">
                     <h2 className="text-rose">Jenjang</h2>
-                    <div className="flex flex-col gap-1 text-secondary text-[11px]">
+                    <div className="flex flex-col gap-1 w-full text-secondary text-[11px]">
                         <div className="flex items-center">
                             <input id="biaya" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-rose" />
                             <label htmlFor="biaya" className="ms-2">TK/SD</label>
@@ -83,7 +83,7 @@ function FundingPageModule() {
                         </div>
                         <div className="flex items-center">
                             <input id="penunjang" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-rose" />
-                            <label htmlFor="penunjang" className="ms-2">Peralatan penunjang pendidikan</label>
+                            <label htmlFor="penunjang" className="ms-2">Jumlah pendaftar</label>
                         </div>
                     </div>
                 </div>

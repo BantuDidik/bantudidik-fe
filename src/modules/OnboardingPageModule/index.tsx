@@ -18,43 +18,43 @@ function OnboardingPageModule() {
         </Link>
     </div>
     <div className="flex flex-col gap-5 text-black">
-        <div className="flex flex-col gap-2 text-center mb-10">
-            <h1 className="font-semibold text-xl">Isi Informasi Tentang </h1>
+        <div className="flex flex-col gap-2 text-center mb-5">
+            <h1 className="font-semibold text-xl">Isi Informasi Tentang Kamu</h1>
             <p className="text-slate-400 text-xs">Buat akun baru</p>
         </div>
         <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-xs font-medium">Alamat email</label>
+                <label htmlFor="email" className="text-xs font-medium">Nama Lengkap</label>
                 <Input type="text" id="email"
                 value={email} onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"/>
+                placeholder="Nama Lengkap"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="password" className="text-xs font-medium">Password</label>
-                <Input type="password" id="password"
-                value={password} onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"/>
+                <label htmlFor="email" className="text-xs font-medium">Nomor Telepon</label>
+                <Input type="text" id="email"
+                value={email} onChange={(e) => setEmail(e.target.value)}
+                placeholder="+62"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="password" className="text-xs font-medium">Confirm Password</label>
-                <Input type="password" id="password"
-                value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Password"/>
+                <label htmlFor="email" className="text-xs font-medium">Tanggal Lahir</label>
+                <Input type="date" id="email"
+                value={email} onChange={(e) => setEmail(e.target.value)}
+                placeholder="mm/dd/yy"/>
+            </div>
+            <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-xs font-medium">Pekerjaan</label>
+                <Input type="text" id="email"
+                value={email} onChange={(e) => setEmail(e.target.value)}
+                placeholder="Pelajar"/>
+            </div>
+            <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-xs font-medium">Lokasi</label>
+                <Input type="text" id="email"
+                value={email} onChange={(e) => setEmail(e.target.value)}
+                placeholder="Kota Depok"/>
             </div>
         </div>
-        <Button>Sign Up</Button>
-        <div className="flex items-center text-xs font-semibold justify-between">
-            <div className="bg-rose h-[1px] w-2/5"></div>
-            <p>or</p>
-            <div className="bg-rose h-[1px] w-2/5"></div>
-        </div>
-        <Button className="bg-transparent border border-rose font-medium text-black hover:bg-slate-200 duration-300">
-            <div className="flex justify-center gap-2">
-                <Image src={'/google.svg'} alt="google" width={15} height={15} />
-                <p>Sign up with Google</p>
-            </div>
-        </Button>
-        <p className="text-xs text-center">Sudah punya akun? <Link href={'/login'} className="text-rose font-semibold">Sign in</Link></p>
+        <Button>Konfirmasi</Button>
     </div>
   </div>
     )

@@ -1,9 +1,13 @@
+'use client'
 import React from "react";
 import { Chip } from "./chip";
+import { useRouter } from "next/navigation";
 
 function OfferCard() {
+    const router = useRouter()
+    const dummyId = '3'
   return (
-    <div className="w-full rounded-xl bg-gray text-rose p-3 font-semibold">
+    <div className="w-full rounded-xl hover:cursor-pointer bg-gray text-rose p-3 font-semibold" onClick={() => router.push(`/funding/${dummyId}`)}>
         <div className="flex justify-between">
             <div className="flex flex-col text-xs">
                 <p>Biaya Pendaftaran PPKB</p>
