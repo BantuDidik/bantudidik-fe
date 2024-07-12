@@ -30,7 +30,11 @@ function ApplicantCard({data} : {data: ApplicationInterface}) {
   return (
     <div className="bg-gray relative w-full flex flex-col rounded-xl p-5">
             <div className="w-full mb-2 flex justify-end">
-                <Chip className="bg-green-500 w-fit text-white text-[8px]">Sudah menerima bantuan</Chip>
+                {data.status == 'Pending' && 
+                <Chip className="bg-sunglow w-fit text-black text-[8px]">Sudah menerima bantuan</Chip>}
+                {data.status == 'Accepted' && 
+                <Chip className="bg-green-500 w-fit text-white text-[8px]">Sudah menerima bantuan</Chip>}
+                {/* {data.status} */}
             </div>
             <div className="flex items-center gap-5">
                 <Image src={'/profile.svg'} alt="" width={0} height={0}

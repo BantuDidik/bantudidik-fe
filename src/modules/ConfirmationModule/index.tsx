@@ -1,25 +1,63 @@
 'use client'
+import { ApplicationInterface, PersonalInterface } from "@/app/funding/[id]/applicants/interface";
 import { Button } from "@/components/button";
 import { Chip } from "@/components/chip";
 import { Modal } from "@/components/modal";
+import axios from "axios";
 import { ArrowLeft, Calendar, CircleDollarSign, Clock10, Eye, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function ConfirmationModule({id, userId} : {id : string, userId: string}) {
     const router = useRouter()
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [application, setApplication] = useState<ApplicationInterface>()
+    const [user, setUser] = useState<PersonalInterface>()
 
     const handleAccept = () => {
-        router.push(`/funding/3/applicants/4/confirmation`)
+        router.push(`/funding/${id}`)
     }
+
+    const fetchApplication = async () => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/application/${userId}`,
+            { withCredentials: true })
+            console.log(response.data)
+            setApplication(response.data)
+        } catch (error) {
+            toast.error('Gagal mengambil data pendaftar')
+            console.error(error)
+        }
+    }
+
+    const fetchUser = async () => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${application?.idUser}`,
+            { withCredentials: true })
+            console.log(response.data.name)
+            setUser(response.data)
+        } catch (error) {
+            toast.error('Gagal mengambil data user')
+        }
+    }
+
+    useEffect(() => {
+        fetchApplication()
+    }, [])
+
+    useEffect(() => {
+        if(application)
+            fetchUser()
+    }, [application])
 
   return (
     <main className="relative flex flex-col items-center overflow-hidden h-full">
       <div className="bg-carmine justify-center items-center gap-2 w-full p-10 rounded-b-[15%] flex flex-col">
-        <Link href={'/funding'} className="absolute left-0 top-0 m-5"><ArrowLeft /></Link>
+        <Link href={`/funding/${id}/applicants/${userId}`} className="absolute left-0 top-0 m-5"><ArrowLeft /></Link>
         <Image
         src={'/profile.svg'}
         alt="Illustration"
@@ -28,8 +66,8 @@ function ConfirmationModule({id, userId} : {id : string, userId: string}) {
         className="w-1/4"
          />
          <div className="flex flex-col items-center gap-1">
-            <h1 className="text-lg text-white font-semibold">Siti Siromah</h1>
-            <p className="text-sm text-sunglow">Pelajar</p>
+            <h1 className="text-lg text-white font-semibold">{user?.name}</h1>
+            <p className="text-sm text-sunglow">{user?.occupation}</p>
          </div>
       </div>
       <div className="p-5 flex w-full flex-col gap-5 justify-center items-center text-xs">
@@ -56,8 +94,8 @@ function ConfirmationModule({id, userId} : {id : string, userId: string}) {
         </Button>
        </div>
        {isModalOpen && <Modal>
-            <p className="text-carmine text-base">Apakah Anda yakin ingin menerima pendaftar ini?</p>
-            <p className="text-secondary">Pastikan persyaratan sudah sesuai agar bantuan Anda tepat sasaran dan berdampak maksimal.</p>
+            <p className="text-carmine text-base">Apakah Anda telah mengirim bantuan?</p>
+            <p className="text-secondary">Setelah Anda mengirim bantuan, penerima akan mendapatkan notifikasi dan perlu mengonfirmasi penerimaan donasi.</p>
             <div className="flex w-full gap-4 justify-between">
                 <Button 
                 className="bg-transparent hover:bg-slate-200 border-2 border-carmine text-carmine" 

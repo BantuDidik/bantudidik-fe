@@ -56,7 +56,7 @@ function SignupPageModule() {
                 placeholder="Password"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="confirmPassword" className="text-xs font-medium">Confirm Password</label>
+                <label htmlFor="confirmPassword" className="text-xs font-medium">Konfirmasi Password</label>
                 <Input type="password" id="confirmPassword"
                 value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"/>
@@ -71,7 +71,7 @@ function SignupPageModule() {
         <Button className="bg-transparent border border-rose font-medium text-black hover:bg-slate-200 duration-300">
             <div className="flex justify-center gap-2">
                 <Image src={'/google.svg'} alt="google" width={15} height={15} />
-                <p>Sign up with Google</p>
+                <p>Daftar lewat Google</p>
             </div>
         </Button>
         <p className="text-xs text-center">Sudah punya akun? <Link href={'/login'} className="text-rose font-semibold">Sign in</Link></p>
