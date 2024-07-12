@@ -14,7 +14,8 @@ function HomePageModule() {
 
     useEffect(() => {
         const token = Cookies.get('access_token')
-        if (token == undefined) router.push('/')
+        console.log(token)
+        // if (token == undefined) router.push('/')
     }, [])
 
     return (

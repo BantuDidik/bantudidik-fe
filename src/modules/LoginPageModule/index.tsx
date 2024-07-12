@@ -9,10 +9,14 @@ import { collection, doc, setDoc, query, where, getDocs } from "firebase/firesto
 import { db, GoogleAuthProvider, getAuth, signInWithPopup } from "@/config/db";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import axios from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginPageModule() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
     const handleGoogle = async () => {
@@ -43,6 +47,39 @@ function LoginPageModule() {
         }
         router.push('/home')
       };
+
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+                email,
+                password
+              }, { withCredentials: true });
+              console.log(response)
+            if (response.status == 200) {
+                const token = response.data.userCredential._tokenResponse.idToken
+                const uid = response.data.userCredential.user.uid
+                // Cookies.set('access_token', token)
+                Cookies.set('userId', uid)
+                toast.success('Login berhasil!')
+                try {
+                    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${uid}`,
+                    { withCredentials: true });
+                } catch (error: any) {
+                    if (error.response.status == 200) {
+                        router.push('/home')
+                    } else if (error.response.status == 404) {
+                        router.push('/onboarding')
+                    } else {
+                        toast.error('Terdapat kesalahan. Coba lagi')
+                        console.error(error)
+                    }
+                }
+            }
+        } catch (error) {
+            toast.error('Terdapat kesalahan. Coba lagi')
+            console.error(error)
+        }
+    }
   return (
   <div className="flex flex-col p-5 gap-10">
     <div className="w-full">
@@ -69,7 +106,7 @@ function LoginPageModule() {
                 placeholder="Password"/>
             </div>
         </div>
-        <Button>Login</Button>
+        <Button onClick={handleLogin}>Login</Button>
         <div className="flex items-center text-xs font-semibold justify-between">
             <div className="bg-rose h-[1px] w-2/5"></div>
             <p>or</p>

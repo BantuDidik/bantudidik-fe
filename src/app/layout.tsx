@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+      <ToastContainer position="top-center" />
         <div className="bg-slate-300 flex justify-center">
           <div className="bg-white w-full md:w-[420px] min-h-screen">
             {children}

@@ -5,11 +5,31 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignupPageModule() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSignup = async () => {
+        setIsLoading(true)
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+                email,
+                password
+              }, { withCredentials: true });
+              console.log(response)
+              toast.success('Email verifikasi telah dikirim')
+        } catch (error: any) {
+            toast.error('Terdapat kesalahan. Coba lagi')
+        }
+        setIsLoading(false)
+    }
+
   return (
   <div className="flex flex-col p-5 gap-10">
     <div className="w-full">
@@ -36,13 +56,13 @@ function SignupPageModule() {
                 placeholder="Password"/>
             </div>
             <div className="flex flex-col gap-2">
-                <label htmlFor="password" className="text-xs font-medium">Confirm Password</label>
-                <Input type="password" id="password"
+                <label htmlFor="confirmPassword" className="text-xs font-medium">Confirm Password</label>
+                <Input type="password" id="confirmPassword"
                 value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Password"/>
+                placeholder="Confirm Password"/>
             </div>
         </div>
-        <Button>Sign Up</Button>
+        <Button disabled={isLoading} onClick={handleSignup}>{isLoading ? 'Loading...' : 'Sign Up'}</Button>
         <div className="flex items-center text-xs font-semibold justify-between">
             <div className="bg-rose h-[1px] w-2/5"></div>
             <p>or</p>
