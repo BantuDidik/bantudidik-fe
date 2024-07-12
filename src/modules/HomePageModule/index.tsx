@@ -71,7 +71,7 @@ function HomePageModule() {
               </div>
               <div className="bg-gray mb-3 w-full rounded-xl flex flex-col justify-between p-4 h-48">
                 <p className="text-black text-sm">Tentang Kami</p>
-                <Button onClick={()=>router.push('/forms')}
+                <Button onClick={()=>router.push('/about')}
                 className="text-[8px] font-semibold w-4/5 z-20 hover:-translate-y-0.5 duration-150"
                   >Lihat lebih lanjut</Button>
               </div>
