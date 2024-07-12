@@ -26,7 +26,8 @@ function HomePageModule() {
             <p>Fathan Naufal Adhitama</p>
             <p className="text-slate-400">Pelajar</p>
           </div>
-          <Image src={'/profile.svg'} alt="" width={0}  height={0} className="w-16 h-16" />
+          <Image onClick={() => router.push('/profile')} src={'/profile.svg'} 
+          alt="" width={0}  height={0} className="w-16 h-16 hover:cursor-pointer" />
         </div>
         <div className="w-full overflow-hidden relative bg-rose p-5 flex flex-col items-start justify-center gap-3 rounded-3xl text-white">
           <h1 className="font-semibold w-full text-left z-20">Mau bantu apa <br /> hari ini?</h1>
