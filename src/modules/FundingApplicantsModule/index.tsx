@@ -3,19 +3,43 @@ import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeft, Search, LucideSettings2, WandSparkles } from "lucide-react";
 import OfferCard from "@/components/OfferCard";
 import { Chip } from "@/components/chip";
 import Navbar from "@/components/navbar";
 import ApplicantCard from "@/components/ApplicantCard";
+import axios from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { ApplicationInterface } from "@/app/funding/[id]/applicants/interface";
+import { Modal } from "@/components/modal";
+import { useRouter } from "next/navigation";
 
 function FundingApplicantsModule({ id }: { id: string }) {
-    const [isFilterOpen, setIsFilterOpen] = useState(false)
-    
-    const handleToggle = () => {
-        setIsFilterOpen(!isFilterOpen)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [applicants, setApplicants] = useState<ApplicationInterface[]>()
+    const router = useRouter()
+
+    const fetchApplicants = async () => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/application/list?funding=${id}`,
+            { withCredentials: true })
+            console.log(response.data)
+            setApplicants(response.data)
+        } catch (error) {
+            toast.error('Gagal mengambil data pendaftar')
+            console.error(error)
+        }
     }
+    useEffect(() => {
+        fetchApplicants()
+    }, [])
+
+    const handleAI = () => {
+      router.push(`/recommendation/${id}`)
+    }
+    
   return (
   <div className="flex flex-col text-black">
     <div className="p-5">
@@ -28,7 +52,7 @@ function FundingApplicantsModule({ id }: { id: string }) {
         <div className="bg-rose overflow-hidden relative rounded-2xl w-full p-3 text-white flex flex-col gap-4">
             <h1 className="font-semibold text-white z-20 text-lg w-3/4">Kesulitan mencari kandidat yang tepat?</h1>
             <p className="text-sm z-20">Gunakan AI Assistant untuk menemukan penerima bantuan yang paling sesuai.</p>
-            <Button className="bg-white text-rose z-20 hover:bg-slate-100">
+            <Button onClick={handleAI} className="bg-white text-rose z-20 hover:bg-slate-100">
                 <div className="flex justify-center items-center gap-2">
                   <WandSparkles />  AI Assistant
                 </div>
@@ -39,10 +63,9 @@ function FundingApplicantsModule({ id }: { id: string }) {
         </div>
     </div>
     <div className="flex flex-col gap-2 px-5">
-        <ApplicantCard />
-        <ApplicantCard />
-        <ApplicantCard />
-        <ApplicantCard />
+        {applicants?.map((applicants, index) => (
+          <ApplicantCard key={index} data={applicants}/>
+        ))}
     </div>
   </div>
     )
