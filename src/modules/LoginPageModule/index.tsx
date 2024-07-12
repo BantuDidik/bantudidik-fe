@@ -109,16 +109,16 @@ function LoginPageModule() {
                 placeholder="Password"/>
             </div>
         </div>
-        <Button onClick={handleLogin}>Login</Button>
+        <Button onClick={handleLogin}>Masuk</Button>
         <div className="flex items-center text-xs font-semibold justify-between">
             <div className="bg-rose h-[1px] w-2/5"></div>
-            <p>or</p>
+            <p>atau</p>
             <div className="bg-rose h-[1px] w-2/5"></div>
         </div>
         <Button onClick={handleGoogle} className="bg-transparent border border-rose font-medium text-black hover:bg-slate-200 duration-300">
             <div className="flex justify-center gap-2">
                 <Image src={'/google.svg'} alt="google" width={15} height={15} />
-                <p>Continue  with Google</p>
+                <p>Lanjutkan dengan Google</p>
             </div>
         </Button>
         <p className="text-xs text-center">Belum punya akun? <Link href={'/signup'} className="text-rose font-semibold">Sign up</Link></p>
