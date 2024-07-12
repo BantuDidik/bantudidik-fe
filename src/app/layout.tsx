@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -26,7 +27,7 @@ export default function RootLayout({
       <ToastContainer position="top-center" hideProgressBar/>
         <div className="bg-slate-300 flex justify-center">
           <div className="bg-white w-full md:w-[420px] min-h-screen">
-            {children}
+            <EdgeStoreProvider>{children}</EdgeStoreProvider>
           </div>
         </div>
       </body>
