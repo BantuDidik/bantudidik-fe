@@ -20,8 +20,6 @@ function HomePageModule() {
         const token = Cookies.get('access_token')
         const idUser = Cookies.get('userId')
 
-        if (token === undefined) router.push('/login')
-
         const fetchFundings = async() => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/funding/list`, { withCredentials: true });
             setFundings(response.data)
