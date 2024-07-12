@@ -20,8 +20,7 @@ function HomePageModule() {
         const token = Cookies.get('access_token')
         const idUser = Cookies.get('userId')
 
-        console.log(token)
-        // if (token === undefined) router.push('/login')
+        if (token === undefined) router.push('/login')
 
         const fetchFundings = async() => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/funding/list`, { withCredentials: true });
@@ -62,8 +61,8 @@ function HomePageModule() {
           <Image src={'/tawarkanBantuan.svg'} alt="illustration" width={200} height={120} className="absolute right-0"/>
         </div>
         <section className="flex flex-col gap-4 items-center">
-          <h2 className="text-md font-semibold w-full">Artikel untuk kamu</h2>
-          <div className="flex gap-2">
+          <h2 className="text-base font-semibold w-full">Artikel untuk kamu</h2>
+          <div className="flex gap-8">
               <div className="bg-carmine mb-3 w-full rounded-xl flex flex-col justify-between p-4 h-48">
                 <p className="text-white text-sm">Kisah Sukses Para Didik</p>
                 <Button onClick={()=>router.push('/forms')}
@@ -79,7 +78,7 @@ function HomePageModule() {
           </div>
         </section>
         <section className="flex flex-col gap-4 items-center w-full text-xs mb-16">
-          <h2 className="text-md font-semibold w-full text-left">Bantuan yang cocok buat kamu</h2>
+          <h2 className="text-base font-semibold w-full text-left">Bantuan yang cocok buat kamu</h2>
           <div className="flex flex-col gap-2 w-full">
             {fundings.slice(0, 3).map((funding, index) => 
                 <OfferCard data={funding} key={index}/>
@@ -88,8 +87,8 @@ function HomePageModule() {
           </div>
         </section>
         <div onClick={() => router.push('/forum')}
-        className="bg-rose hover:cursor-pointer text-white flex text-xs gap-2 items-center rounded-xl p-2 fixed bottom-24 right-10 md:right-[38%]">
-          <MessageSquareMore size={24}/> Forum
+            className="bg-rose hover:cursor-pointer text-white flex text-s gap-2 items-center justify-center rounded-xl p-2 fixed bottom-24 right-10 md:right-[39%] w-[110px] h-[50px] hover:scale-105 transition-transform duration-200">
+            <MessageSquareMore size={24}/> Forum
         </div>
       </div>
     )

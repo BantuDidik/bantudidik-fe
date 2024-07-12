@@ -26,26 +26,47 @@ function LoginPageModule() {
         });
         const auth = getAuth();
         const userCred = await signInWithPopup(auth, provider);
-        console.log(userCred)
-        // set cookie
-        Cookies.set('access_token', (userCred as any)._tokenResponse.idToken)
-        Cookies.set('userId', userCred.user.uid)
-        Cookies.set('userName', userCred.user.displayName!.split(' ')[0])
 
-        const email = userCred.user.email
+        if (userCred) {
+            const uid = userCred.user.uid
+            Cookies.set('userId', uid)
+            try {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/personal/${uid}`,
+                { withCredentials: true });
+                if (res.status == 200) {
+                    router.push('/home')
+                }
+            } catch (error: any) {
+                if (error.response.status == 200) {
+                     // set cookie
+                    Cookies.set('access_token', (userCred as any)._tokenResponse.idToken)
+                    Cookies.set('userId', userCred.user.uid)
+                    Cookies.set('userName', userCred.user.displayName!.split(' ')[0])
 
-        const usersRef = collection(db, "users");
-        const q = query(usersRef, where("email", "==", email));
-        const querySnapshot = await getDocs(q);
+                    const email = userCred.user.email
 
-        if (querySnapshot.empty) {
-            await setDoc(doc(db, "users", userCred.user.uid), {
-                email: email,
-                password: password,
-                createdAt: new Date(),
-            });
+                    const usersRef = collection(db, "users");
+                    const q = query(usersRef, where("email", "==", email));
+                    const querySnapshot = await getDocs(q);
+
+                    if (querySnapshot.empty) {
+                        await setDoc(doc(db, "users", userCred.user.uid), {
+                            email: email,
+                            password: password,
+                            createdAt: new Date(),
+                        });
+                    }
+                    toast.success('Login berhasil!')
+                    router.push('/home')
+                } else if (error.response.status == 404) {
+                    toast.success('Login berhasil!')
+                    router.push('/onboarding')
+                } else {
+                    toast.error('Terdapat kesalahan. Coba lagi')
+                    console.error(error)
+                }
+            }
         }
-        router.push('/home')
       };
 
     const handleLogin = async () => {
@@ -56,9 +77,7 @@ function LoginPageModule() {
               }, { withCredentials: true });
               console.log(response)
             if (response.status == 200) {
-                const token = response.data.userCredential._tokenResponse.idToken
                 const uid = response.data.userCredential.user.uid
-                // Cookies.set('access_token', token)
                 Cookies.set('userId', uid)
                 toast.success('Login berhasil!')
                 try {
