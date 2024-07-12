@@ -110,12 +110,6 @@ const Chat: React.FC = () => {
                         >
                             <strong>{message.name}:</strong> {message.message}
                         </div>
-
-                        {(message.message == 'http') && 
-                            <div>
-                                //TODO
-                            </div>
-                        }
                         </>
                     )
                 })
