@@ -81,8 +81,8 @@ function HomePageModule() {
         <section className="flex flex-col gap-4 items-center w-full text-xs mb-16">
           <h2 className="text-md font-semibold w-full text-left">Bantuan yang cocok buat kamu</h2>
           <div className="flex flex-col gap-2 w-full">
-            {fundings.slice(0, 3).map(funding => 
-                <OfferCard data={funding}/>
+            {fundings.slice(0, 3).map((funding, index) => 
+                <OfferCard data={funding} key={index}/>
             )}
             
           </div>
