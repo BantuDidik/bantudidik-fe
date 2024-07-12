@@ -32,6 +32,7 @@ function FundingPageModule() {
             }
         } catch (error) {
             toast.error('Gagal mengambil data')
+            console.error(error)
         }
     }
 
@@ -44,6 +45,7 @@ function FundingPageModule() {
             }
         } catch (error) {
             toast.error('Gagal mengambil data')
+            console.error(error)
         }
     }
 

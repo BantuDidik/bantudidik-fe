@@ -58,7 +58,7 @@ function LoginPageModule() {
             if (response.status == 200) {
                 const token = response.data.userCredential._tokenResponse.idToken
                 const uid = response.data.userCredential.user.uid
-                Cookies.set('access_token', token)
+                // Cookies.set('access_token', token)
                 Cookies.set('userId', uid)
                 toast.success('Login berhasil!')
                 try {

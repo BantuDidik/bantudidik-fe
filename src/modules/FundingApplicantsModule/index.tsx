@@ -19,7 +19,7 @@ function FundingApplicantsModule({ id }: { id: string }) {
   return (
   <div className="flex flex-col text-black">
     <div className="p-5">
-        <Link href={'/funding/3'} className="text-carmine">
+        <Link href={`/funding/${id}`} className="text-carmine">
             <ArrowLeft />
         </Link>
     </div>

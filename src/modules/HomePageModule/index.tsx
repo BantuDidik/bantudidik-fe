@@ -15,7 +15,7 @@ function HomePageModule() {
     useEffect(() => {
         const token = Cookies.get('access_token')
         console.log(token)
-        if (token == undefined) router.push('/login')
+        // if (token === undefined) router.push('/login')
     }, [])
 
     return (

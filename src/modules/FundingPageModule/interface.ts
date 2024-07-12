@@ -14,5 +14,11 @@ export interface FundingInterface {
     startDate: Date;
     endDate: Date;
     createdAt: Date;
-    requirements: string[];
+    requirements: {
+        certificate:boolean,
+        cv:boolean,
+        identity:boolean,
+        kipk:boolean,
+        motivationLetter:boolean,
+    };
 }

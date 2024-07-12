@@ -40,8 +40,8 @@ function OfferCard({data} : {data: FundingInterface}) {
             )}
         </div>
         <div className="flex font-semibold my-3 text-[10px] gap-3 flex-wrap">
-            {data.jenjang.map(jenjang => (
-                <Chip>{jenjang}</Chip>
+            {data.jenjang.map((jenjang, index) => (
+                <Chip key={index}>{jenjang}</Chip>
             ))}
         </div>
         <p className="font-medium text-secondary text-[10px] border-b pb-2 border-carmine">
