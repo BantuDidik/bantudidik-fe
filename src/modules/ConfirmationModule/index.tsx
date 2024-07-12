@@ -18,7 +18,15 @@ function ConfirmationModule({id, userId} : {id : string, userId: string}) {
     const [application, setApplication] = useState<ApplicationInterface>()
     const [user, setUser] = useState<PersonalInterface>()
 
-    const handleAccept = () => {
+    const handleAccept = async () => {
+        const body = {
+            idApplication : userId,
+            idFunding : id
+        }
+        
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/application/complete`,
+            body, { withCredentials: true })
+
         router.push(`/home`)
         toast.success('Bantuan telah sukses diterima. Terima kasih!')
     }

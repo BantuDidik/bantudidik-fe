@@ -17,6 +17,7 @@ function FundingDetailPageModule({id} : {id : string}) {
     const [funding, setFunding] = useState<FundingInterface>()
     const [fundingType, setFundingType] = useState<string>()
     const [giver, setGiver] = useState('')
+    const [isApplied, setIsApplied] = useState('')
 
     const fetchGiver = async () => {
         try {
@@ -41,7 +42,20 @@ function FundingDetailPageModule({id} : {id : string}) {
             console.error(error)
         }
     }
+
+    const fetchApplied = async ()=> {
+        const body = {
+            idFunding : id,
+            idUser : Cookies.get("userId")
+        }
+
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/funding/check`, body,
+            { withCredentials: true })
+        setIsApplied(response.data.isApplied)
+    }
+
     useEffect(() => {
+        fetchApplied()
         fetchFunding()
     }, [])
 
@@ -125,6 +139,8 @@ function FundingDetailPageModule({id} : {id : string}) {
         {funding?.idUser == Cookies.get('userId') ? (
             <Button className="mt-16" onClick={()=>router.push(`/funding/${id}/applicants`)}>Lihat Pendaftar</Button>
         ) : (
+            isApplied ? 
+            <Button className="mt-16 " onClick={()=>router.push(`/funding/register/${id}`)} disabled>Sudah Mengajukan Bantuan</Button> :
             <Button className="mt-16" onClick={()=>router.push(`/funding/register/${id}`)}>Ajukan Bantuan</Button>
         )
         }
